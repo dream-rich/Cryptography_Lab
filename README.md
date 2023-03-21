@@ -14,6 +14,7 @@ The labs in this repository are organized by topic:
 - Lab 3: Block Ciphers
 - Lab 4: RSA Encryption and Decryption
 - Lab 5: Hash Functions
+
 Each lab is contained within its own directory, and includes a README file with more detailed instructions on how to run the code.
 
 ## Getting Started
