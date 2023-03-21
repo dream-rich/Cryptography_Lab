@@ -4,7 +4,7 @@ This repository contains the source code for the labs in my Cryptography class, 
 ## Requirements
 In order to run the code in this repository, you will need:
 
-- A C++ compiler (such as g++)
+- C++ compiler (such as g++)
 - The OpenSSL library
 ## Labs
 The labs in this repository are organized by topic:
