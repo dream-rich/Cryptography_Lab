@@ -81,8 +81,6 @@ int main(int argc, char* argv[])
 	CryptoPP::byte iv[DES::BLOCKSIZE];
 	prng.GenerateBlock(iv, sizeof(iv));
 
-	/*********************************\
-	\*********************************/
 	//plain1.txt data < 64 bit
 	string plain = InputFromFile(L"plain1.txt");
 
@@ -93,9 +91,6 @@ int main(int argc, char* argv[])
 	// wstring wplain = ImportWString("plain3.txt");
 
 	string cipher, encoded, recovered;
-
-	/*********************************\
-	\*********************************/
 	
 	// Pretty print key
 	encoded.clear();
@@ -109,26 +104,19 @@ int main(int argc, char* argv[])
     wstring encodedIV(encoded.begin(), encoded.end());
 	wcout << "iv: " << encodedIV << endl;
 
-	/*********************************\
-	\*********************************/
+	//Encryption
 	CBC_Mode< DES >::Encryption e;
 	e.SetKeyWithIV(key, key.size(), iv);
 
 	StringSource(plain, true, new StreamTransformationFilter(e, new StringSink(cipher))); 
 	
-
-	/*********************************\
-	\*********************************/
-
 	// Pretty print
 	encoded.clear();
 	StringSource(cipher, true, new HexEncoder(new StringSink(encoded)));
     wstring encodedCipher(encoded.begin(), encoded.end());
 	wcout << "cipher text: " << encodedCipher << endl;
 
-	/*********************************\
-     * Decryption
-	\*********************************/
+        //Decryption
 	CBC_Mode< DES >::Decryption d;
 	d.SetKeyWithIV(key, key.size(), iv);
 
@@ -136,44 +124,39 @@ int main(int argc, char* argv[])
 	wstring encodedRecovered(recovered.begin(), recovered.end());
 	wcout << "recovered text: " << encodedRecovered << endl;
 	
-		
-	
-
-	// =======================================================================//
 	// Benchmark
-	// =======================================================================//
 
-    const int BUF_SIZE = RoundUpToMultipleOf(2048U,dynamic_cast<StreamTransformation&>(d).OptimalBlockSize());
-    const double runTimeInSeconds = 3.0;
-    AlignedSecByteBlock buf(BUF_SIZE);
-    prng.GenerateBlock(buf, buf.size());
+    	const int BUF_SIZE = RoundUpToMultipleOf(2048U,dynamic_cast<StreamTransformation&>(d).OptimalBlockSize());
+    	const double runTimeInSeconds = 3.0;
+    	AlignedSecByteBlock buf(BUF_SIZE);
+  	prng.GenerateBlock(buf, buf.size());
 
-    double elapsedTimeInSeconds;
-    unsigned long i=0, blocks=1;
+   	double elapsedTimeInSeconds;
+   	unsigned long i=0, blocks=1;
 
-    ThreadUserTimer timer;
-    timer.StartTimer();
+    	ThreadUserTimer timer;
+    	timer.StartTimer();
 
-    do
-    {
-        blocks *= 2;
-        for (; i<blocks; i++)
-            d.ProcessString(buf, BUF_SIZE);
-        elapsedTimeInSeconds = timer.ElapsedTimeAsDouble();
-    }
-    while (elapsedTimeInSeconds < runTimeInSeconds);
-    const double cpuFreq = 3.3 * 1000 * 1000 * 1000;
-    const double bytes = static_cast<double>(BUF_SIZE) * blocks;
-    const double ghz = cpuFreq / 1000 / 1000 / 1000;
-    const double mbs = bytes / elapsedTimeInSeconds / 1024 / 1024;
-    const double cpb = elapsedTimeInSeconds * cpuFreq / bytes;
+	    do
+	    {
+		blocks *= 2;
+		for (; i<blocks; i++)
+		    d.ProcessString(buf, BUF_SIZE);
+		elapsedTimeInSeconds = timer.ElapsedTimeAsDouble();
+	    }
+	    while (elapsedTimeInSeconds < runTimeInSeconds);
+	    const double cpuFreq = 3.3 * 1000 * 1000 * 1000;
+	    const double bytes = static_cast<double>(BUF_SIZE) * blocks;
+	    const double ghz = cpuFreq / 1000 / 1000 / 1000;
+	    const double mbs = bytes / elapsedTimeInSeconds / 1024 / 1024;
+	    const double cpb = elapsedTimeInSeconds * cpuFreq / bytes;
 
-    wcout << "  " << ghz << " GHz cpu frequency"  << std::endl;
-    wcout << "  " << cpb << " cycles per byte (cpb)" << std::endl;
-    wcout << "  " << mbs << " MiB per second (MiB)" << std::endl;
+	    wcout << "  " << ghz << " GHz cpu frequency"  << std::endl;
+	    wcout << "  " << cpb << " cycles per byte (cpb)" << std::endl;
+	    wcout << "  " << mbs << " MiB per second (MiB)" << std::endl;
 
 
-    pause();
-    return 0;
+	  pause();
+	  return 0;
 }
 
