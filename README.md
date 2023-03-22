@@ -20,7 +20,7 @@ Each lab is contained within its own directory, and includes a README file with 
 ## Getting Started
 To get started with the labs, simply clone this repository to your local machine:
 
-```git clone https://github.com/tuanle03/Cryptography_Lab.git```
+```git clone https://github.com/dream-rich/Cryptography_Lab.git```
 
 Once you have cloned the repository, navigate to the directory for the lab you wish to work on and follow the instructions in the README file.
 
