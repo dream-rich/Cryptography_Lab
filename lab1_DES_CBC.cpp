@@ -85,10 +85,10 @@ int main(int argc, char* argv[])
 	string plain = InputFromFile(L"plain1.txt");
 
 	//plain2.txt data utf-16
-	// wstring wplain = ImportWString("plain2.txt");
+	// string wplain = ImportWString("plain2.txt");
 
 	//plain3.txt data > 1MB
-	// wstring wplain = ImportWString("plain3.txt");
+	// string wplain = ImportWString("plain3.txt");
 
 	string cipher, encoded, recovered;
 	
