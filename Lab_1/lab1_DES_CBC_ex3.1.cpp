@@ -81,8 +81,6 @@ int main(int argc, char* argv[])
 	CryptoPP::byte iv[DES::BLOCKSIZE];
 	prng.GenerateBlock(iv, sizeof(iv));
 
-	/*********************************\
-	\*********************************/
 	//plain1.txt data < 64 bit
 	// string plain = InputFromFile(L"plain1.txt");
 
@@ -94,9 +92,6 @@ int main(int argc, char* argv[])
 
 	string cipher, encoded, recovered;
 
-	/*********************************\
-	\*********************************/
-	
 	// Pretty print key
 	encoded.clear();
 	StringSource(key, key.size(), true, new HexEncoder(new StringSink(encoded)));
@@ -109,16 +104,10 @@ int main(int argc, char* argv[])
     wstring encodedIV(encoded.begin(), encoded.end());
 	wcout << "iv: " << encodedIV << endl;
 
-	/*********************************\
-	\*********************************/
 	CBC_Mode< DES >::Encryption e;
 	e.SetKeyWithIV(key, key.size(), iv);
 
 	StringSource(plain, true, new StreamTransformationFilter(e, new StringSink(cipher))); 
-	
-
-	/*********************************\
-	\*********************************/
 
 	// Pretty print
 	encoded.clear();
@@ -126,20 +115,15 @@ int main(int argc, char* argv[])
     wstring encodedCipher(encoded.begin(), encoded.end());
 	wcout << "cipher text: " << encodedCipher << endl;
 
-	/*********************************\
-     * Decryption
-	\*********************************/
+    // * Decryption
 	CBC_Mode< DES >::Decryption d;
 	d.SetKeyWithIV(key, key.size(), iv);
 
 	// StringSource s(cipher, true, new StreamTransformationFilter(d, new StringSink(recovered)) );
 	// wstring encodedRecovered(recovered.begin(), recovered.end());
 	// wcout << "recovered text: " << encodedRecovered << endl;
-	
-	// =======================================================================//
-	// Benchmark
-	// =======================================================================//
 
+	// Benchmark
     const int BUF_SIZE = RoundUpToMultipleOf(2048U,dynamic_cast<StreamTransformation&>(d).OptimalBlockSize());
     const double runTimeInSeconds = 3.0;
     AlignedSecByteBlock buf(BUF_SIZE);
@@ -168,7 +152,6 @@ int main(int argc, char* argv[])
     wcout << "  " << ghz << " GHz cpu frequency"  << std::endl;
     wcout << "  " << cpb << " cycles per byte (cpb)" << std::endl;
     wcout << "  " << mbs << " MiB per second (MiB)" << std::endl;
-
 
     pause();
     return 0;

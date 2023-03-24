@@ -57,9 +57,6 @@ int main(int argc, char* argv[])
 
 	string cipher, encoded, recovered;
 
-	/*********************************\
-	\*********************************/
-
 	// Pretty print key
 	encoded.clear();
 	StringSource(key, key.size(), true,
@@ -79,9 +76,6 @@ int main(int argc, char* argv[])
 	); // StringSource
     wstring encodedIV(encoded.begin(), encoded.end());
 	wcout << "iv: " << encodedIV << endl;
-
-	/*********************************\
-	\*********************************/
 
 	try
 	{
@@ -104,9 +98,6 @@ int main(int argc, char* argv[])
 		exit(1);
 	}
 
-	/*********************************\
-	\*********************************/
-
 	// Pretty print
 	encoded.clear();
 	StringSource(cipher, true,
@@ -117,10 +108,7 @@ int main(int argc, char* argv[])
     wstring encodedCipher(encoded.begin(), encoded.end());
 	wcout << "cipher text: " << encodedCipher << endl;
 
-	/*********************************\
-     * Decryption
-	\*********************************/
-
+     //* Decryption
 	try
 	{
 		CBC_Mode< DES >::Decryption d;
@@ -141,10 +129,6 @@ int main(int argc, char* argv[])
 		cerr << e.what() << endl;
 		exit(1);
 	}
-
-	/*********************************\
-	\*********************************/
-
 	return 0;
 }
 
