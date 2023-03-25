@@ -77,9 +77,6 @@ int main(int argc, char* argv[]) {
     wcout << "plain text: " << wplain << endl;
     CBC_Mode< DES >::Encryption e;
     e.SetKeyWithIV(key, key.size(), iv);
-    // The StreamTransformationFilter adds padding
-    //  as required. ECB and CBC Mode must be padded
-    //  to the block size of the cipher.
     StringSource(plain, true, 
         new StreamTransformationFilter(e,
           new StringSink(cipher)) // StreamTransformationFilter      
