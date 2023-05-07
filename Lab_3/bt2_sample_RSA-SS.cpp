@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "rsa.h"
 using CryptoPP::RSA;
 using CryptoPP::RSASS;
@@ -26,8 +28,6 @@ using std::string;
 using std::cout;
 using std::endl;
 
-using namespace CryptoPP;
-
 int main(int argc, char* argv[])
 {
     try
@@ -55,7 +55,6 @@ int main(int argc, char* argv[])
         // Sign message
         signer.SignMessage( rng, (const byte*) message.c_str(),
             message.length(), signature );
-
 
         // Verifier object
         RSASS<PSS, SHA1>::Verifier verifier( publicKey );
