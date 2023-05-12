@@ -99,6 +99,8 @@ int main( int, char** ) {
     siglen = signer.SignMessage( prng, (const CryptoPP::byte*)message.data(), message.size(), (CryptoPP::byte*)signature.data() );
     signature.resize(siglen); 
 
+    cout << "Algorithm: " << signer.AlgorithmName() << endl;
+    //cout << "Message: " << ToHex(message) << endl;
     cout << "Signature: " << ToHex(signature) << endl;
 
     // Load public key (in ByteQueue, X509 format)
