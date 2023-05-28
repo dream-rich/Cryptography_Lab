@@ -6,5 +6,5 @@ e = 65537
 phi = (p-1) * (q-1)
 
 d = pow(e, -1, phi)
-
+print(phi)
 print(d)
